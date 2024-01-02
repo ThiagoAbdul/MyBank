@@ -1,8 +1,7 @@
 ﻿namespace MyBank.Models
 {
-    public class Transaction
+    public class Transaction : EntityBase
     {
-        public Guid Id { get; set; }
         public decimal Value { get; set; } 
         public DateTime Timestamp { get; set; }
         public Account Sender{ get; set; }

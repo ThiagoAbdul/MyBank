@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Evo systems\\Documents\\estudos\\MyBank\\MyBankBackend\\MyBank.csproj": {}
+    "/home/abdul/Documentos/estudos/projetos/MyBank/MyBankBackend/MyBank.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Evo systems\\Documents\\estudos\\MyBank\\MyBankBackend\\MyBank.csproj": {
+    "/home/abdul/Documentos/estudos/projetos/MyBank/MyBankBackend/MyBank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Evo systems\\Documents\\estudos\\MyBank\\MyBankBackend\\MyBank.csproj",
+        "projectUniqueName": "/home/abdul/Documentos/estudos/projetos/MyBank/MyBankBackend/MyBank.csproj",
         "projectName": "MyBank",
-        "projectPath": "C:\\Users\\Evo systems\\Documents\\estudos\\MyBank\\MyBankBackend\\MyBank.csproj",
-        "packagesPath": "C:\\Users\\Evo systems\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Evo systems\\Documents\\estudos\\MyBank\\MyBankBackend\\obj\\",
+        "projectPath": "/home/abdul/Documentos/estudos/projetos/MyBank/MyBankBackend/MyBank.csproj",
+        "packagesPath": "/home/abdul/.nuget/packages/",
+        "outputPath": "/home/abdul/Documentos/estudos/projetos/MyBank/MyBankBackend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Evo systems\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/abdul/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -84,6 +82,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -92,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/abdul/.dotnet/sdk/8.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

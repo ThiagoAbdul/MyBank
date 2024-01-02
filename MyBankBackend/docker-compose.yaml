@@ -1,9 +1,9 @@
-version: "3.7"
+version: "3.5"
 
 services:
   database:
     image: postgres:14-alpine
-    container_name: mybank_pg
+    hostname: mybank_pg
     ports:
       - "5432:5432"
     environment:
@@ -15,10 +15,15 @@ services:
       - "mybank_volume:/var/lib/postgresql/data/pgdata"
     networks: 
       - mybank_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 512M
 
   admin:
     image: dpage/pgadmin4
-    container_name: pgadmin4
+    hostname: mybank_pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=thiagoabdul10@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=root
