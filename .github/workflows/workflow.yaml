@@ -1,0 +1,28 @@
+name: CI
+
+on: 
+  push:
+    branches: 
+      - main
+      - development 
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x'
+      - name: Display dotnet version
+        run: dotnet --version
+      - name: Install dependencies
+        run: dotnet restore MyBankBackend/src/App
+      - name: Build
+        run: dotnet build  MyBankBackend/src/App/MyBank.sln
+      - name: Test with the dotnet CLI
+        run: | 
+          dotnet restore MyBankBackend/src/Tests
+          dotnet test MyBankBackend/src/Tests
