@@ -1,0 +1,42 @@
+nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  background-color: var(--default-color);
+  padding: 0 8px;
+  font-size: 1rem;
+  color: white;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+nav #name {
+  // background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav div {
+  padding: 8px;
+  transition-duration: .25s;
+}
+
+nav div:hover {
+  background-color: var(--default-light-color);
+}
+
+nav p {
+  // background-color: green;
+  margin: 0;
+}
+
+nav #icon {
+  // background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav mat-icon{
+  cursor: pointer;
+}
