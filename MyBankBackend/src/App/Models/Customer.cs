@@ -10,7 +10,7 @@ namespace MyBank.Models
         public DateOnly? BirthDate { get; set; }
         public Account? Account{ get; set; }
 
-        Customer() { }
+        public Customer() { }
         public Customer(string firstName, string lastName, string email, DateOnly birthDate)
         {
             FirstName = firstName;

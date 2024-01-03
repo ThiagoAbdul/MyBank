@@ -9,7 +9,7 @@
         public Account Receiver { get; set; }
         public Guid ReceiverId { get; set; }
 
-        Transaction() { }
+        public Transaction() { }
         
         public Transaction(decimal value, Account sender, Account receiver){
             Value = value;

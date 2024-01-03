@@ -10,7 +10,7 @@ namespace MyBank.Models
         public Customer Customer { get; set; }
         public Guid CustomerId { get; set; }
 
-        Account() { }
+        public Account() { }
 
         public Account(string number, string password, Customer customer)
         {
