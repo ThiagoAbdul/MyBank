@@ -8,5 +8,16 @@
         public Guid SenderId { get; set; }
         public Account Receiver { get; set; }
         public Guid ReceiverId { get; set; }
+
+        Transaction() { }
+        
+        public Transaction(decimal value, Account sender, Account receiver){
+            Value = value;
+            Sender = sender;
+            SenderId = sender.Id;
+            Receiver = receiver;
+            ReceiverId = receiver.Id;
+            Timestamp = DateTime.Now;
+        }
     }
 }

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-dotnet run --project src/MyBank.csproj
+dotnet run --project src/App/MyBank.csproj
