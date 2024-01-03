@@ -1,0 +1,12 @@
+:root {
+  --default-color: rgb(93, 39, 124);
+  --default-light-color: rgb(103, 42, 138);
+
+}
+
+* {
+  margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
