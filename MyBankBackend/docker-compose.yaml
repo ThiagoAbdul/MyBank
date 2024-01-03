@@ -31,6 +31,19 @@ services:
       - "5433:80"
     networks:
       - mybank_network
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: mybank_api
+    environment:
+      - DB_CONNECTION_STRING="Host=mybank_pgadmin4; Database=mybank_db; Username=root; Password=root"
+    ports:
+      - "7001:80"
+    expose:
+      - "80"
+    networks:
+      - mybank_network
 
 networks:
   mybank_network:

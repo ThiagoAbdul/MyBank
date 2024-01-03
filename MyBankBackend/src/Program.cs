@@ -9,8 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(options => options.UseNpgsql(
-    builder.Configuration.GetConnectionString("DevDatabase")));
+
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
+    options => options.UseNpgsql(
+        Environment.GetEnvironmentVariable(
+        "DB_CONNECTION_STRING") ??
+        builder.Configuration.GetConnectionString("DevDatabase"
+        ))
+    );
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
