@@ -19,10 +19,10 @@ jobs:
       - name: Display dotnet version
         run: dotnet --version
       - name: Install dependencies
-        run: dotnet restore MyBankBackend/src/App
+        run: dotnet restore MyBankBackend/src/MyBank.Application
       - name: Build
-        run: dotnet build  MyBankBackend/src/App/MyBank.sln
+        run: dotnet build  MyBankBackend/src/MyBank.Application
       - name: Test with the dotnet CLI
         run: | 
-          dotnet restore MyBankBackend/src/Tests
-          dotnet test MyBankBackend/src/Tests
+          dotnet restore MyBankBackend/src/MyBank.Tests
+          dotnet test MyBankBackend/src/MyBank.Tests

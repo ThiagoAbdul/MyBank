@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App\MyBank.csproj" />
+    <ProjectReference Include="..\MyBank.Application\MyBank.csproj" />
   </ItemGroup>
 
 </Project>
