@@ -40,7 +40,7 @@ services:
     environment:
       - DB_CONNECTION_STRING="Host=mybank_pgadmin4; Database=mybank_db; Username=root; Password=root"
     ports:
-      - "7001:80"
+      - "7002:80"
     expose:
       - "80"
     networks:
@@ -50,7 +50,7 @@ services:
     <<: *api
     hostname: mybank_api02
     ports:
-      - "7002:80"
+      - "7003:80"
 
   loadbalancer:
     image: nginx

@@ -1,12 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using MyBank.Configurations;
 using MyBank.Data;
+using MyBank.Mappers;
 using MyBank.Repositories;
 using MyBank.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+           .AddJsonOptions(options =>
+            {
+               options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+            });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,7 +25,11 @@ builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
     );
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 
 var app = builder.Build();
 
