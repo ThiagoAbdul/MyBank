@@ -12,6 +12,7 @@ namespace MyBankTest.Services
         Customer _customer;
         Mock<IAccountRepository> accountRepositoryMock;
         Mock<ICustomerRepository> customerRepositoryMock;
+
         public AccountServiceTest()
         {
             accountRepositoryMock = new Mock<IAccountRepository>();
