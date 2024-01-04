@@ -15,6 +15,7 @@ namespace MyBank.Data
             modelBuilder.Entity<Customer>(e =>
             {
                 e.HasKey("Id");
+                e.HasIndex("Email").IsUnique();
                 
             });
             modelBuilder.Entity<Account>(e => 

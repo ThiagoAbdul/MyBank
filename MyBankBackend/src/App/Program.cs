@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyBank.Data;
+using MyBank.Mappers;
 using MyBank.Repositories;
 using MyBank.Services;
 
@@ -20,6 +21,9 @@ builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 
 var app = builder.Build();
 
