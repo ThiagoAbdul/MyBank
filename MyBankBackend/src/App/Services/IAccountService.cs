@@ -4,6 +4,6 @@ namespace MyBank.Services
 {
     public interface IAccountService
     {
-        Task<Account> OpenAccount(Customer customer);
+        Task<Account> OpenAccount(Customer customer, string password);
     }
 }
