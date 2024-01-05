@@ -1,6 +1,6 @@
 namespace MyBank.Messaging
 {
-    public interface IMessagePublisher
+    public interface IMessagingClient
     {
         void Publish(object data, string routingKey);
 

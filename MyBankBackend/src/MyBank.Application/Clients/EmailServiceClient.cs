@@ -6,17 +6,17 @@ namespace MyBank.Clients
     public class EmailServiceClient : IEmailServiceClient
     {
 
-        private readonly IMessagePublisher _messagePublisher;
+        private readonly IMessagingClient _messagingClient;
         private const string ROUTING_KEY_SUBSCRIBE = "email-confirmation-requested";
-        public EmailServiceClient(IMessagePublisher messagePublisher)
+        public EmailServiceClient(IMessagingClient messagingClient)
         {
-            _messagePublisher = messagePublisher;
+            _messagingClient = messagingClient;
         }
 
         public void SendEmailConfirmationRequest(string email, Guid customerId)
         {
             var requestEvent = new EmailConfirmationRequestEvent(email, customerId);
-            _messagePublisher.Publish(requestEvent, ROUTING_KEY_SUBSCRIBE);
+            _messagingClient.Publish(requestEvent, ROUTING_KEY_SUBSCRIBE);
         }
     } 
 }

@@ -1,25 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+using EmailService;
+using EmailService.Messaging;
+using EmailService.Services;
 
-// Add services to the container.
+var builder = Host.CreateApplicationBuilder(args);
+builder.Services.AddScoped<IEmailValidationService, EmailValidationService>();
+builder.Services.AddScoped<IMessagingClient, RabbitClient>();
+builder.Services.AddHostedService<Worker>();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+var host = builder.Build();
+host.Run();
