@@ -9,10 +9,10 @@ namespace MyBank.Repositories
         public CustomerRepository(AppDbContext dbContext) : base(dbContext) { }
 
 
-        public async Task<Customer?> FindByEmail(string email)
+        public async Task<Customer?> FindActiveCustomersByEmail(string email)
         {
             return await _dbSet
-                .Where(c => c.Email == email)
+                .Where(c => c.Email == email && !c.Deleted && c.Active)
                 .FirstOrDefaultAsync();
 
         }

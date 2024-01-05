@@ -1,3 +1,4 @@
+using MyBank.Clients;
 using MyBank.Exceptions;
 using MyBank.Models;
 using MyBank.Repositories;
@@ -8,11 +9,14 @@ namespace MyBank.Services
     {
         private readonly IAccountRepository _accountRepository;
         private readonly ICustomerRepository _customerRepository;
+        private IEmailServiceClient _emailServiceClient;
         public AccountService(IAccountRepository accountRepository, 
-            ICustomerRepository customerRepository)
+            ICustomerRepository customerRepository,
+            IEmailServiceClient emailServiceClient)
         {
             _accountRepository = accountRepository;
             _customerRepository = customerRepository;
+            _emailServiceClient = emailServiceClient;
         }
         public async Task<Account> OpenAccount(Customer customer, string password) // Test
         {
@@ -26,7 +30,7 @@ namespace MyBank.Services
 
         private async Task VerifyIfEmailIsNotRegistered(Customer customer) // Test
         {
-            Customer? found =  await _customerRepository.FindByEmail(customer.Email);
+            Customer? found =  await _customerRepository.FindActiveCustomersByEmail(customer.Email);
             if (found != null)
                 throw new EmailAlreadyRegisteredException(found.Email);
         }

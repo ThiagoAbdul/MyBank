@@ -1,4 +1,5 @@
 using Moq;
+using MyBank.Clients;
 using MyBank.Exceptions;
 using MyBank.Models;
 using MyBank.Repositories;
@@ -12,14 +13,17 @@ namespace MyBankTest.Services
         Customer _customer;
         Mock<IAccountRepository> accountRepositoryMock;
         Mock<ICustomerRepository> customerRepositoryMock;
+        Mock<IEmailServiceClient> emailServiceClientMock;
 
         public AccountServiceTest()
         {
             accountRepositoryMock = new Mock<IAccountRepository>();
             customerRepositoryMock = new Mock<ICustomerRepository>();
+            emailServiceClientMock = new Mock<IEmailServiceClient>();
             _accountService = new AccountService(
                 accountRepositoryMock.Object,
-                customerRepositoryMock.Object
+                customerRepositoryMock.Object,
+                emailServiceClientMock.Object
             );
 
             customerRepositoryMock
@@ -56,7 +60,7 @@ namespace MyBankTest.Services
         public void OpenAccount_EmailMustBeUnique()
         {
             customerRepositoryMock
-                .Setup(mock => mock.FindByEmail(_customer.Email))
+                .Setup(mock => mock.FindActiveCustomersByEmail(_customer.Email))
                 .ReturnsAsync(_customer);
             Assert.ThrowsAsync<EmailAlreadyRegisteredException>(
                 () => _accountService.OpenAccount(_customer, "sjdsd")
