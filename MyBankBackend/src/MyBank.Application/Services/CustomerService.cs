@@ -28,9 +28,11 @@ namespace MyBank.Services
 
         private async Task VerifyIfEmailIsNotRegistered(Customer customer)
         {
-            Customer? found =  await _customerRepository.FindActiveCustomersByEmail(customer.Email);
+            Customer? found =  await _customerRepository.FindByEmail(customer.Email);
             if (found != null)
+            {
                 throw new EmailAlreadyRegisteredException(found.Email);
+            }
         }
     }
 }

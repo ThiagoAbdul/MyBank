@@ -15,16 +15,12 @@ namespace MyBank.Messaging
         {
             _logger = logger;
             var connectionFactory = new ConnectionFactory {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
+                HostName = Environment.GetEnvironmentVariable("RABBIT_HOST") ?? "localhost",
+                UserName = Environment.GetEnvironmentVariable("RABBIT_USER") ?? "guest",
+                Password = Environment.GetEnvironmentVariable("RABBIT_PASS") ?? "guest"
             };
             _connection = connectionFactory.CreateConnection("mybank-service-publisher");
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(exchange: EXCHANGE_NAME, 
-                                    type: ExchangeType.Direct, 
-                                    durable: true, 
-                                    autoDelete: false);
             
         }
         public void Publish(object data, string routingKey)
@@ -39,12 +35,6 @@ namespace MyBank.Messaging
             string json = JsonConvert.SerializeObject(data);
             byte[] payload = Encoding.UTF8.GetBytes(json);
             return payload;
-        }
-
-        public void SetupQueue(string queueName, string routingKeySubscribe)
-        {
-            _channel.QueueDeclare(queueName, true, false, false);
-            _channel.QueueBind(queueName, EXCHANGE_NAME, routingKeySubscribe);
         }
     }
 }
