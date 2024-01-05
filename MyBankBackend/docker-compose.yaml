@@ -52,6 +52,19 @@ services:
     ports:
       - "7003:80"
 
+  broker:
+    image: rabbitmq:3-management
+    hostname: mybank_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBIT_DEFAULT_USER=guest
+      - RABBIT_DEFAULT_PASS=guest
+    networks:
+      - mybank_network
+    restart: unless-stopped
+      
   loadbalancer:
     image: nginx
     hostname: mybank_nginx
