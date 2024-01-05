@@ -33,22 +33,21 @@ namespace MyBankTest.Repositories
         }
 
         [Fact]
-        public async Task FindActiveCustomersByEmail()
+        public async Task FindByEmail()
         {
-            _customer.Active = true;
             await _customerRepository.Create(_customer);
             await _customerRepository.CommitAsync();
-            Customer? found = await _customerRepository.FindActiveCustomersByEmail(_customer.Email);
+            Customer? found = await _customerRepository.FindByEmail(_customer.Email);
             Assert.NotNull(found);
             Assert.Equal(_customer.Email, found.Email);
         }
 
         [Fact]
-        public async Task FindActiveCustomersByEmail_CustomerInactive()
-        {   
+        public async Task FindByEmail_CustomerDeleted()
+        {   _customer.Deleted = true;
             await _customerRepository.Create(_customer);
             await _customerRepository.CommitAsync();
-            Customer? found = await _customerRepository.FindActiveCustomersByEmail(_customer.Email);
+            Customer? found = await _customerRepository.FindByEmail(_customer.Email);
             Assert.Null(found);
             
         }

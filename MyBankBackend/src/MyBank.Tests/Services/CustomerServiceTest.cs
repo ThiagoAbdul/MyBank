@@ -52,7 +52,7 @@ namespace MyBankTest.Services
         public void CreateCustomert_EmailMustBeUnique()
         {
             customerRepositoryMock
-                .Setup(mock => mock.FindActiveCustomersByEmail(_customer.Email))
+                .Setup(mock => mock.FindByEmail(_customer.Email))
                 .ReturnsAsync(_customer);
             Assert.ThrowsAsync<EmailAlreadyRegisteredException>(
                 () => _customerSerivce.RegisterCustomer(_customer)
