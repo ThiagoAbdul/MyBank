@@ -9,6 +9,7 @@ namespace MyBank.Models
         public string Email { get; set; }
         public DateOnly? BirthDate { get; set; }
         public Account? Account{ get; set; }
+        public bool Active { get; set; } = false;
 
         public Customer() { }
         public Customer(string firstName, string lastName, string email, DateOnly birthDate)

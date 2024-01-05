@@ -1,5 +1,6 @@
 using Moq;
 using MyBank.Clients;
+using MyBank.Events;
 using MyBank.Exceptions;
 using MyBank.Models;
 using MyBank.Repositories;
@@ -7,24 +8,17 @@ using MyBank.Services;
 
 namespace MyBankTest.Services
 {
-    public class AccountServiceTest
+    public class CustomerServiceTest
     {
-        AccountService _accountService;
-        Customer _customer;
-        Mock<IAccountRepository> accountRepositoryMock;
+        CustomerService _customerSerivce;
         Mock<ICustomerRepository> customerRepositoryMock;
         Mock<IEmailServiceClient> emailServiceClientMock;
+        Customer _customer;
 
-        public AccountServiceTest()
+        public CustomerServiceTest()
         {
-            accountRepositoryMock = new Mock<IAccountRepository>();
             customerRepositoryMock = new Mock<ICustomerRepository>();
             emailServiceClientMock = new Mock<IEmailServiceClient>();
-            _accountService = new AccountService(
-                accountRepositoryMock.Object,
-                customerRepositoryMock.Object,
-                emailServiceClientMock.Object
-            );
 
             customerRepositoryMock
                 .Setup(mock  => mock.Create(It.IsAny<Customer>()))
@@ -35,35 +29,33 @@ namespace MyBankTest.Services
                     }
                 );
 
-            accountRepositoryMock
-                .Setup(mock  => mock.Create(It.IsAny<Account>()))
-                .Returns<Account>(account => 
-                    {
-                        account.Id = Guid.NewGuid();
-                        return Task.FromResult(account);
-                    }
-                );
+            _customerSerivce = new CustomerService(
+                customerRepositoryMock.Object, 
+                emailServiceClientMock.Object
+            );
+
 
             _customer = new Customer("João", "Souza", "joao@gmail.com", 
                                                     new DateOnly(2000, 10, 1));
         }
 
-        // [Fact]
-        public async void OpenAccount()
-        {
-            Account account = await _accountService.OpenAccount(_customer, "lsllds");
-            Assert.Equal(_customer, account.Customer);
 
+        [Fact]
+        public async void CreateCustomer()
+        {
+            await _customerSerivce.RegisterCustomer(_customer);
+            emailServiceClientMock
+                .Verify(mock => mock.SendEmailConfirmationRequest(_customer.Email, _customer.Id));
         }
 
-        // [Fact]
-        public void OpenAccount_EmailMustBeUnique()
+        [Fact]
+        public void CreateCustomert_EmailMustBeUnique()
         {
             customerRepositoryMock
                 .Setup(mock => mock.FindByEmail(_customer.Email))
                 .ReturnsAsync(_customer);
             Assert.ThrowsAsync<EmailAlreadyRegisteredException>(
-                () => _accountService.OpenAccount(_customer, "sjdsd")
+                () => _customerSerivce.RegisterCustomer(_customer)
             );
         }
     }

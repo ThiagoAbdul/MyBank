@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using MyBank.Clients;
 using MyBank.Configurations;
 using MyBank.Data;
 using MyBank.Mappers;
+using MyBank.Messaging;
 using MyBank.Repositories;
 using MyBank.Services;
 
@@ -28,6 +30,9 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
+
+builder.Services.AddScoped<IEmailServiceClient, EmailServiceClient>();
 
 builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 

@@ -38,7 +38,10 @@ services:
       dockerfile: Dockerfile
     hostname: mybank_api01
     environment:
-      - DB_CONNECTION_STRING="Host=mybank_pgadmin4; Database=mybank_db; Username=root; Password=root"
+      - DB_CONNECTION_STRING=Host=mybank_pg; Database=mybank_db; Username=root; Password=root
+      - RABBIT_HOST=mybank_rabbitmq
+      - RABBIT_USER=guest
+      - RABBIT_PASSWORD=guest
     ports:
       - "7002:80"
     expose:
@@ -52,6 +55,19 @@ services:
     ports:
       - "7003:80"
 
+  broker:
+    image: rabbitmq:3-management
+    hostname: mybank_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    networks:
+      - mybank_network
+    restart: unless-stopped
+      
   loadbalancer:
     image: nginx
     hostname: mybank_nginx

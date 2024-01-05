@@ -1,0 +1,65 @@
+{
+    "rabbit_version": "3",
+    "rabbitmq_version": "3",
+    "product_name": "RabbitMQ",
+    "product_version": "3",
+
+    "users": [
+        {
+          "name": "guest",
+          "password_hash": "BMfxN8drrYcIqXZMr+pWTpDT0nMcOagMduLX0bjr4jwud/pN",
+          "hashing_algorithm": "rabbit_password_hashing_sha256",
+          "tags": [
+            "administrator"
+          ],
+          "limits": {}
+        }
+      ],
+
+    "vhosts": [
+      {
+        "name": "/"
+      }
+    ],
+
+    "permissions": [
+        {
+          "user": "guest",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        }
+      ],
+
+    "queues": [
+      {
+        "name": "email-service.email-confirmation-requested",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+      }
+    ],
+    "exchanges": [
+        {
+            "name": "mybank-service",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+      {
+        "source": "mybank-service",
+        "vhost": "/",
+        "destination": "email-service.email-confirmation-requested",
+        "destination_type": "queue",
+        "routing_key": "email-confirmation-requested",
+        "arguments": {}
+      }
+    ]
+  }

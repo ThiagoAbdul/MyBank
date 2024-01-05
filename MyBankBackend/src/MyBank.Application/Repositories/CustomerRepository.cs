@@ -12,7 +12,7 @@ namespace MyBank.Repositories
         public async Task<Customer?> FindByEmail(string email)
         {
             return await _dbSet
-                .Where(c => c.Email == email)
+                .Where(c => c.Email == email && !c.Deleted)
                 .FirstOrDefaultAsync();
 
         }
