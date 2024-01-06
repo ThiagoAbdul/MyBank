@@ -1,18 +1,24 @@
+using EmailService.Models;
+using EmailService.Repositories;
+
 namespace EmailService.Services
 {
     public class EmailValidationService : IEmailValidationService 
     {
-        readonly ILogger<EmailValidationService> _logger;
-        public EmailValidationService(ILogger<EmailValidationService> logger)
+        private readonly ILogger<EmailValidationService> _logger;
+        private readonly IEmailValidationRepository _emailValidationRepository; 
+        public EmailValidationService(
+            IEmailValidationRepository emailValidationRepository,
+            ILogger<EmailValidationService> logger)
         {
-            _logger =logger;
+            _emailValidationRepository = emailValidationRepository;
+            _logger = logger;
         }
-        public Task ValidateEmail(string email, Guid customerId){
-            return Task.Run(() => 
-            {
-                Thread.Sleep(2000);
-                _logger.LogInformation(email);
-            });                                                        
+        public async Task ValidateEmail(string email, Guid customerId){
+            var emailValidation = new EmailValidation(email, customerId);
+            await _emailValidationRepository.CreateAsync(emailValidation);
+            _logger.LogInformation("email: {}\nid: {}\ntoken: {}", 
+            emailValidation.Email, emailValidation.Id, emailValidation.Token);                                                
         }
     }
 }
