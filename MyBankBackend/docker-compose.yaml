@@ -44,8 +44,6 @@ services:
       - RABBIT_PASSWORD=guest
     ports:
       - "7002:80"
-    expose:
-      - "80"
     networks:
       - mybank_network
 
@@ -80,6 +78,19 @@ services:
     depends_on:
         - api01
         - api02
+  
+  mongo:
+    image: mongo
+    hostname: mybank_mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mybank_mongo_volume:/data/db
+    networks:
+      - mybank_network
 
 networks:
   mybank_network:
@@ -87,3 +98,4 @@ networks:
 
 volumes:
   mybank_volume:
+  mybank_mongo_volume:
