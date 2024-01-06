@@ -7,5 +7,7 @@ A web application that simulates a banking app
 ## Backend
 - .NET 6
 - PostgreSQL
+- RabbitMQ
+- Nginx
 
 ![Modelo de domínio](./Docs/DomainModel.svg "Modelo de domínio")
